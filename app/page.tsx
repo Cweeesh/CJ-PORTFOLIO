@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 
 // ==========================================
-// 1. Hydration-Safe Global Particle Component
+// 1. Hydration-Safe Global Star Particle
 // ==========================================
 function Particle({ mouseX, mouseY, windowBounds }: { mouseX: any, mouseY: any, windowBounds: { width: number, height: number } }) {
   const [mounted, setMounted] = useState(false);
@@ -19,7 +19,8 @@ function Particle({ mouseX, mouseY, windowBounds }: { mouseX: any, mouseY: any, 
     animX: 0,
     animY: 0,
     duration: 5,
-    reactionRange: 50
+    reactionRange: 50,
+    rotation: 0,
   });
 
   // Generate random values ONLY on the client after the first render
@@ -28,14 +29,15 @@ function Particle({ mouseX, mouseY, windowBounds }: { mouseX: any, mouseY: any, 
     if (windowBounds.width === 0) return;
 
     setProps({
-      size: Math.random() * 4 + 2, // 2px to 6px
+      size: Math.random() * 12 + 8, // Increased size (8px to 20px) to make star shape visible
       baseOpacity: Math.random() * 0.3 + 0.1, // 10% to 40% opacity
       baseX: Math.random() * windowBounds.width,
       baseY: Math.random() * windowBounds.height,
-      animX: Math.random() * 30 - 15,
-      animY: Math.random() * 30 - 15,
+      animX: Math.random() * 40 - 20,
+      animY: Math.random() * 40 - 20,
       duration: Math.random() * 5 + 5,
-      reactionRange: Math.random() * 80 + 30
+      reactionRange: Math.random() * 80 + 30,
+      rotation: Math.random() * 360, // Random starting rotation
     });
     setMounted(true);
   }, [windowBounds]);
@@ -72,18 +74,28 @@ function Particle({ mouseX, mouseY, windowBounds }: { mouseX: any, mouseY: any, 
         width: props.size,
         height: props.size,
       }}
-      // Use neutral-500 so it's visible on both white and black sections
-      className="absolute bg-neutral-500 rounded-full z-[1]"
+      // Removed bg color and rounded-full, added text color for the SVG to inherit
+      className="absolute text-neutral-500 z-[1] flex items-center justify-center"
       animate={{
         x: [0, props.animX, 0],
         y: [0, props.animY, 0],
+        rotate: [props.rotation, props.rotation + 180, props.rotation + 360], // Added a subtle spin
       }}
       transition={{
         duration: props.duration,
         repeat: Infinity,
-        ease: "easeInOut",
+        ease: "linear", // Changed to linear so rotation doesn't stutter
       }}
-    />
+    >
+      {/* The SVG Star */}
+      <svg 
+        viewBox="0 0 24 24" 
+        fill="currentColor" 
+        className="w-full h-full"
+      >
+        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+      </svg>
+    </motion.div>
   );
 }
 
@@ -144,7 +156,7 @@ export default function Home() {
           Fixed to the screen, sits above backgrounds but below text (z-30)
           ======================================== */}
       <div className="fixed inset-0 w-full h-full pointer-events-none z-[30]">
-        {/* Render 40 particles globally */}
+        {/* Render 40 stars globally */}
         {Array.from({ length: 40 }).map((_, i) => (
           <Particle
             key={i}
@@ -197,7 +209,7 @@ export default function Home() {
               About Me
             </h2>
             <p className="text-lg" style={{ color: "var(--foreground)" }}>
-              As you scroll down, this section covers the hero animation. Notice the particles are still here!
+              As you scroll down, this section covers the hero animation. Notice the stars are still here!
             </p>
           </div>
         </div>
@@ -215,7 +227,7 @@ export default function Home() {
             Selected Projects
           </h2>
           <p className="text-lg" style={{ color: "var(--foreground)" }}>
-            Standard scrolling resumes here. The dots flow seamlessly into this section.
+            Standard scrolling resumes here. The stars flow seamlessly into this section.
           </p>
         </div>
       </section>
@@ -227,7 +239,7 @@ export default function Home() {
             Let's Connect
           </h2>
           <p className="text-lg" style={{ color: "var(--foreground)" }}>
-            Because the dots are neutral gray, they subtly show up on dark backgrounds too.
+            Because the stars are neutral gray, they subtly show up on dark backgrounds too.
           </p>
         </div>
       </section>
