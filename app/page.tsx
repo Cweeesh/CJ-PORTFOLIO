@@ -202,17 +202,35 @@ export default function Home() {
         </motion.div>
 
         {/* SECTION 2: The Parallax Cover */}
-        <div className="relative z-[20] flex h-screen items-center justify-center p-6 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]" style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}>
-          {/* z-[40] for content so dots float behind the text but over the background */}
-          <div className="relative z-[40] max-w-4xl w-full text-center">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-              About Me
-            </h2>
-            <p className="text-lg" style={{ color: "var(--foreground)" }}>
-              As you scroll down, this section covers the hero animation. Notice the stars are still here!
-            </p>
-          </div>
-        </div>
+<div 
+  className="relative z-[20] flex h-screen items-center justify-center p-6 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]" 
+  style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}
+>
+  {/* z-[40] for content so dots float behind the text but over the background */}
+  <div className="relative z-[40] max-w-5xl w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
+    
+    {/* Left Side: Description */}
+    <div className="flex-1 text-center md:text-left">
+      <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+        About Me
+      </h2>
+      <p className="text-lg" style={{ color: "var(--foreground)" }}>
+        As you scroll down, this section covers the hero animation. Notice the stars are still here!
+      </p>
+    </div>
+
+    {/* Right Side: Image */}
+    <div className="flex-1 flex justify-center md:justify-end">
+      {/* Note: If you are using Next.js, you can swap out the <img> tag for the Next <Image /> component */}
+      <img 
+        src="/PERSONAL-PICTURE.png" 
+        alt="Personal Profile" 
+        className="w-100 h-100 md:w-180 md:h-180 object-cover rounded-2xl shadow-lg border-2 border-transparent"
+      />
+    </div>
+
+  </div>
+</div>
 
       </div>
 
@@ -220,18 +238,81 @@ export default function Home() {
           STANDARD SCROLLING SECTIONS
           ======================================== */}
 
-      {/* SECTION 3: Projects */}
-      <section className="relative z-[20] flex min-h-screen items-center justify-center p-6" style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}>
-        <div className="relative z-[40] max-w-4xl w-full text-center">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+    {/* SECTION 3: Projects */}
+      <section 
+        className="relative z-[20] flex min-h-screen items-center justify-center p-6 md:p-12" 
+        style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}
+      >
+        {/* Widened the main container from max-w-5xl to max-w-7xl */}
+        <div className="relative z-[40] max-w-7xl w-full text-center">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-16">
             Selected Projects
           </h2>
-          <p className="text-lg" style={{ color: "var(--foreground)" }}>
-            Standard scrolling resumes here. The stars flow seamlessly into this section.
-          </p>
+
+          {/* Removed the background, borders, and backdrop-blur to make it seamless */}
+          <div className="flex flex-col items-center w-full">
+            
+            {/* Project Title & Short Description */}
+            <h3 className="text-2xl md:text-4xl font-bold mb-6 max-w-12xl">
+              FitTech: Near Field Communication Empowered Gym Management and AI-Enhanced Personal Training
+            </h3>
+            <p className="text-lg md:text-xl mb-16 max-w-12xl opacity-80">
+              A full-stack gym management system designed specifically for RKP Fitness Gym. Deployed and actively utilized in production for 5 months in Siniloan Laguna, bridging the gap between physical hardware and digital fitness tracking.
+            </p>
+
+            {/* Project Images - Removed borders and shadows */}
+            <div className="flex flex-col md:flex-row justify-center items-center gap-12 md:gap-16 mb-16 w-full max-w-6xl">
+              <img
+                src="/WEBSITE.png"
+                alt="FitTech Web Dashboard Design"
+                className="w-full md:w-1/2 h-auto object-contain"
+              />
+              <img
+                src="/MOBILEAPP.png"
+                alt="FitTech Mobile App Design"
+                className="w-full md:w-1/2 h-auto object-contain"
+              />
+            </div>
+
+            {/* Project Details Grid - Widened text layout */}
+            <div className="text-left grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 w-full max-w-5xl text-base md:text-lg">
+              
+              {/* Components */}
+              <div>
+                <h4 className="font-bold text-xl mb-4">Core Components</h4>
+                <ul className="list-disc list-inside space-y-3 opacity-80">
+                  <li>
+                    <strong>Web Dashboard:</strong> Administrative portal for staff to manage memberships, analytics, and daily gym operations.
+                  </li>
+                  <li>
+                    <strong>Mobile App:</strong> A dedicated application for gym members featuring AI-enhanced personalized training routines.
+                  </li>
+                  <li>
+                    <strong>NFC Integration:</strong> Tap-to-access smart technology for seamless gym entry and automated attendance tracking.
+                  </li>
+                </ul>
+              </div>
+
+              {/* Highlights & Tech */}
+              <div>
+                <h4 className="font-bold text-xl mb-4">Highlights & Technologies</h4>
+                <ul className="list-disc list-inside space-y-3 opacity-80">
+                  <li>
+                    <strong>Tech Stack:</strong> JavaScript, Tailwind CSS, Flutter, Node.js, and MySQL.
+                  </li>
+                  <li>
+                    <strong>Deployment:</strong> Maintained robust performance and reliability over 5 months of continuous real-world use.
+                  </li>
+                  <li>
+                    <strong>Recognition:</strong> Selected Participant for University-Wide Research Congress
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
         </div>
       </section>
-
       {/* SECTION 4: Contact */}
       <section className="relative z-[20] flex min-h-[50vh] items-center justify-center p-6" style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}>
         <div className="relative z-[40] max-w-4xl w-full text-center">
