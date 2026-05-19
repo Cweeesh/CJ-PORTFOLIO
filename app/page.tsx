@@ -214,20 +214,20 @@ export default function Home() {
       <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
         About Me
       </h2>
-      <p className="text-lg" style={{ color: "var(--foreground)" }}>
-        As you scroll down, this section covers the hero animation. Notice the stars are still here!
-      </p>
+      <p className="text-lg leading-relaxed" style={{ color: "var(--foreground)" }}>
+  I don't just write code; I architect systems that deliver. Whether it's crafting lightning-fast full-stack web applications or mapping out complex backend and infrastructure networks, I approach every project with full-court focus—engineering fluid user experiences and airtight technical architecture that perform under pressure.
+</p>
     </div>
 
     {/* Right Side: Image */}
-    <div className="flex-1 flex justify-center md:justify-end">
-      {/* Note: If you are using Next.js, you can swap out the <img> tag for the Next <Image /> component */}
-      <img 
-        src="/PERSONAL-PICTURE.png" 
-        alt="Personal Profile" 
-        className="w-100 h-100 md:w-180 md:h-180 object-cover rounded-2xl shadow-lg border-2 border-transparent"
-      />
-    </div>
+{/* Added md:translate-x-8 to shift it 32px to the right */}
+<div className="flex-1 flex justify-center md:justify-end md:translate-x-40">
+  <img 
+    src="/PERSONAL-PICTURE.png" 
+    alt="Personal Profile" 
+    className="w-80 h-80 md:w-[500px] md:h-[500px] object-cover rounded-2xl shadow-lg border-2 border-transparent"
+  />
+</div>
 
   </div>
 </div>
