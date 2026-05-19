@@ -214,7 +214,7 @@ export default function Home() {
       <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
         About Me
       </h2>
-      <p className="text-lg leading-relaxed" style={{ color: "var(--foreground)" }}>
+      <p className="text-lg leading-relaxed max-w-2xl md:max-w-none" style={{ color: "var(--foreground)" }}>
   I don't just write code; I architect systems that deliver. Whether it's crafting lightning-fast full-stack web applications or mapping out complex backend and infrastructure networks, I approach every project with full-court focus—engineering fluid user experiences and airtight technical architecture that perform under pressure.
 </p>
     </div>
