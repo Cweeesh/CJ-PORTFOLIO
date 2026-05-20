@@ -103,6 +103,13 @@ export default function Home() {
     return () => window.removeEventListener("resize", updateBounds);
   }, []);
 
+  useEffect(() => {
+    if (windowBounds.width <= 768) {
+      mouseX.set(0);
+      mouseY.set(0);
+    }
+  }, [windowBounds]);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (windowBounds.width > 768) {
       mouseX.set(e.clientX);
