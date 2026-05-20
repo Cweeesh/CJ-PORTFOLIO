@@ -298,7 +298,7 @@ export default function Home() {
             Let's Connect
           </h2>
           <p className="text-lg opacity-70">
-            Because the stars are neutral gray, they subtly show up on dark backgrounds too.
+            
           </p>
         </div>
       </section>
