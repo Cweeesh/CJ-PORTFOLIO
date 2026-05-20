@@ -1,98 +1,15 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
-
-function Particle({ mouseX, mouseY, windowBounds }: { mouseX: any, mouseY: any, windowBounds: { width: number, height: number } }) {
-  const [mounted, setMounted] = useState(false);
-  
-  const [props, setProps] = useState({
-    size: 0,
-    baseOpacity: 0,
-    baseX: 0,
-    baseY: 0,
-    animX: 0,
-    animY: 0,
-    duration: 5,
-    reactionRange: 50,
-    rotation: 0,
-  });
-
-  useEffect(() => {
-    if (windowBounds.width === 0) return;
-
-    setProps({
-      size: Math.random() * 12 + 8,
-      baseOpacity: Math.random() * 0.3 + 0.1,
-      baseX: Math.random() * windowBounds.width,
-      baseY: Math.random() * windowBounds.height,
-      animX: Math.random() * 40 - 20,
-      animY: Math.random() * 40 - 20,
-      duration: Math.random() * 5 + 5,
-      reactionRange: Math.random() * 80 + 30,
-      rotation: Math.random() * 360,
-    });
-    setMounted(true);
-  }, [windowBounds]);
-
-  const springX = useSpring(0, { stiffness: 40, damping: 20 });
-  const springY = useSpring(0, { stiffness: 40, damping: 20 });
-
-  useEffect(() => {
-    if (!mounted) return;
-    return mouseX.on("change", (latestX: number) => {
-      const normX = latestX / windowBounds.width - 0.5;
-      springX.set(props.baseX + normX * props.reactionRange);
-    });
-  }, [mouseX, windowBounds.width, props.baseX, props.reactionRange, mounted]);
-
-  useEffect(() => {
-    if (!mounted) return;
-    return mouseY.on("change", (latestY: number) => {
-      const normY = latestY / windowBounds.height - 0.5;
-      springY.set(props.baseY + normY * props.reactionRange);
-    });
-  }, [mouseY, windowBounds.height, props.baseY, props.reactionRange, mounted]);
-
-  if (!mounted) return null;
-
-  return (
-    <motion.div
-      style={{
-        left: springX,
-        top: springY,
-        opacity: props.baseOpacity,
-        width: props.size,
-        height: props.size,
-      }}
-      className="absolute text-neutral-500 z-[1] flex items-center justify-center"
-      animate={{
-        x: [0, props.animX, 0],
-        y: [0, props.animY, 0],
-        rotate: [props.rotation, props.rotation + 180, props.rotation + 360],
-      }}
-      transition={{
-        duration: props.duration,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-    >
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
-        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-      </svg>
-    </motion.div>
-  );
-}
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const expRef = useRef<HTMLDivElement>(null);
-  
+
   const [windowBounds, setWindowBounds] = useState({ width: 0, height: 0 });
-  const mouseX = useSpring(0);
-  const mouseY = useSpring(0);
 
   useEffect(() => {
     const updateBounds = () => {
@@ -102,20 +19,6 @@ export default function Home() {
     window.addEventListener("resize", updateBounds);
     return () => window.removeEventListener("resize", updateBounds);
   }, []);
-
-  useEffect(() => {
-    if (windowBounds.width <= 768) {
-      mouseX.set(0);
-      mouseY.set(0);
-    }
-  }, [windowBounds]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    if (windowBounds.width > 768) {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    }
-  };
 
   const { scrollYProgress: heroScroll } = useScroll({
     target: heroRef,
@@ -140,15 +43,8 @@ export default function Home() {
 
   return (
     <main 
-      onMouseMove={handleMouseMove}
       className="font-sans overflow-x-hidden relative transition-colors duration-500"
     >
-      <div className="fixed inset-0 w-full h-full pointer-events-none z-[30]">
-        {Array.from({ length: 40 }).map((_, i) => (
-          <Particle key={i} mouseX={mouseX} mouseY={mouseY} windowBounds={windowBounds} />
-        ))}
-      </div>
-
       <div ref={heroRef} className="relative h-screen overflow-hidden z-10">
         <motion.div 
           style={{ y: heroBgY }}
@@ -228,10 +124,10 @@ export default function Home() {
                   <h3 className="text-3xl font-bold mt-1">OSP Engineer Trainee</h3>
                 </div>
                 <span 
-                  className="text-sm px-3 py-1 rounded-full border font-mono transition-colors duration-500 bg-black/[0.04] dark:bg-white/[0.06] border-black/10 dark:border-white/15"
-                >
-                  300 HRS
-                </span>
+  className="inline-flex items-center justify-center text-sm px-3 py-1 rounded-full border font-mono whitespace-nowrap transition-colors duration-500 bg-black/[0.04] dark:bg-white/[0.06] border-black/10 dark:border-white/15"
+>
+  300 HRS
+</span>
               </div>
               
               <h4 className="text-base font-semibold mb-6 relative z-10 opacity-70">MaTel Solutions Inc.</h4>
@@ -309,7 +205,6 @@ export default function Home() {
           </p>
         </div>
       </section>
-
     </main>
   );
 }
