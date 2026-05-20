@@ -4,9 +4,6 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 
-// ==========================================
-// 1. Hydration-Safe Global Star Particle
-// ==========================================
 function Particle({ mouseX, mouseY, windowBounds }: { mouseX: any, mouseY: any, windowBounds: { width: number, height: number } }) {
   const [mounted, setMounted] = useState(false);
   
@@ -88,9 +85,6 @@ function Particle({ mouseX, mouseY, windowBounds }: { mouseX: any, mouseY: any, 
   );
 }
 
-// ==========================================
-// 2. Main Page Component
-// ==========================================
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -116,7 +110,6 @@ export default function Home() {
     }
   };
 
-  // --- Independent Parallax Animations ---
   const { scrollYProgress: heroScroll } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
@@ -143,17 +136,12 @@ export default function Home() {
       onMouseMove={handleMouseMove}
       className="font-sans overflow-x-hidden relative transition-colors duration-500"
     >
-      
-      {/* GLOBAL PARTICLES LAYER */}
       <div className="fixed inset-0 w-full h-full pointer-events-none z-[30]">
         {Array.from({ length: 40 }).map((_, i) => (
           <Particle key={i} mouseX={mouseX} mouseY={mouseY} windowBounds={windowBounds} />
         ))}
       </div>
 
-      {/* ========================================
-          SECTION 1: HERO PARALLAX
-          ======================================== */}
       <div ref={heroRef} className="relative h-screen overflow-hidden z-10">
         <motion.div 
           style={{ y: heroBgY }}
@@ -176,9 +164,6 @@ export default function Home() {
         </motion.div>
       </div>
 
-      {/* ========================================
-          SECTION 2: ABOUT ME (Smooth Fade & Slide)
-          ======================================== */}
       <section 
         ref={aboutRef}
         className="relative z-[20] min-h-screen flex items-center justify-center p-6 md:p-12 transition-colors duration-500"
@@ -187,30 +172,25 @@ export default function Home() {
           style={{ opacity: aboutFade, y: aboutY }}
           className="relative z-[40] max-w-5xl w-full flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16"
         >
-          {/* Left Side: Description */}
           <div className="flex-[1.6] text-center md:text-left">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-8">
               About Me
             </h2>
-            <p className="text-lg leading-relaxed max-w-none opacity-90">
+            <p className="text-xl leading-relaxed max-w-none opacity-90">
               I don't just write code; I architect systems that deliver. Whether it's crafting lightning-fast full-stack web applications or mapping out complex backend and infrastructure networks, I approach every project with full-court focus—engineering fluid user experiences and airtight technical architecture that perform under pressure.
             </p>
           </div>
 
-          {/* Right Side: Image */}
           <div className="flex-[1] flex justify-center md:justify-end w-full">
             <img 
               src="/PERSONAL-PICTURE.png" 
               alt="Personal Profile" 
-              className="w-full h-80 md:w-[650px] md:h-[400px] object-cover rounded-2xl shadow-2xl border border-black/10 dark:border-white/10 transition-all duration-500"
+              className="w-full max-w-[400px] md:max-w-[650px] h-auto object-cover rounded-2xl shadow-2xl border border-black/10 dark:border-white/10 transition-all duration-500"
             />
           </div>
         </motion.div>
       </section>
 
-      {/* ========================================
-          SECTION 2.5: PROFESSIONAL EXPERIENCES (Smooth Fade & Slide)
-          ======================================== */}
       <section 
         ref={expRef}
         className="relative z-[20] min-h-screen flex items-center justify-center p-6 md:p-12 transition-colors duration-500"
@@ -219,34 +199,29 @@ export default function Home() {
           style={{ opacity: expFade, y: expY }}
           className="relative z-[40] max-w-5xl w-full flex flex-col md:flex-row-reverse items-center justify-between gap-12 md:gap-16"
         >
-          {/* Right Side: Experience Description */}
           <div className="flex-[1.4] text-center md:text-left">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-8">
               Experience
             </h2>
-            <p className="text-lg leading-relaxed max-w-none opacity-90">
+            <p className="text-xl leading-relaxed max-w-none opacity-90">
               Bridging software systems engineering with real-world infrastructure. My background includes technical field deployments, managing end-to-end telecommunications frameworks, handling redline physical blueprints, and orchestrating network distribution. I focus on reliability, rigorous field calculation, and structural optimization across both digital networks and physical systems.
             </p>
           </div>
 
-          {/* Left Side: Professional Experience Showcase Box */}
           <div className="flex-[1.2] w-full flex justify-center md:justify-start">
             <div 
               className="w-full max-w-[480px] p-8 rounded-2xl border backdrop-blur-md shadow-2xl text-left relative overflow-hidden transition-all duration-500 bg-black/[0.03] dark:bg-white/[0.04] border-black/[0.08] dark:border-white/[0.08]"
             >
-              
-              {/* Subtle Blueprint Grid Accent */}
               <div 
                 className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.05] dark:opacity-[0.03] transition-opacity duration-500" 
               />
-              
               <div className="flex justify-between items-start mb-6 relative z-10">
                 <div>
-                  <span className="text-xs font-semibold tracking-wider uppercase opacity-60">Internship Practicum</span>
-                  <h3 className="text-2xl font-bold mt-1">OSP Engineer Trainee</h3>
+                  <span className="text-sm font-semibold tracking-wider uppercase opacity-60">Internship Practicum</span>
+                  <h3 className="text-3xl font-bold mt-1">OSP Engineer Trainee</h3>
                 </div>
                 <span 
-                  className="text-xs px-3 py-1 rounded-full border font-mono transition-colors duration-500 bg-black/[0.04] dark:bg-white/[0.06] border-black/10 dark:border-white/15"
+                  className="text-sm px-3 py-1 rounded-full border font-mono transition-colors duration-500 bg-black/[0.04] dark:bg-white/[0.06] border-black/10 dark:border-white/15"
                 >
                   300 HRS
                 </span>
@@ -273,9 +248,6 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ========================================
-          SECTION 3: SELECTED PROJECTS
-          ======================================== */}
       <section 
         className="relative z-[20] flex min-h-screen items-center justify-center p-6 md:p-12 transition-colors duration-500" 
       >
@@ -310,8 +282,8 @@ export default function Home() {
               <div>
                 <h4 className="font-bold text-xl mb-4">Highlights & Technologies</h4>
                 <ul className="list-disc list-inside space-y-3 opacity-80">
-                  <li><b>Tech Stack:</b> JavaScript, Tailwind CSS, Flutter, Node.js, and MySQL.</li>
-                  <li><b>Deployment:</b> Maintained robust performance and reliability over 5 months of continuous real-world use.</li>
+                  <li><b>Tech Stack:</b> HTML, JavaScript, Tailwind CSS, Flutter, Node.js, and MySQL.</li>
+                  <li><b>Deployment:</b> Maintained robust performance and reliability over 5 months of continuous real-world use in Siniloan Laguna.</li>
                   <li><b>Recognition:</b> Selected Participant for University-Wide Research Congress</li>
                 </ul>
               </div>
@@ -320,9 +292,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ========================================
-          SECTION 4: CONTACT
-          ======================================== */}
       <section className="relative z-[20] flex min-h-[50vh] items-center justify-center p-6 transition-colors duration-500">
         <div className="relative z-[40] max-w-4xl w-full text-center">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
